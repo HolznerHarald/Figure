@@ -1,0 +1,46 @@
+﻿<Window x:Class="Figure.Settings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Figure"
+        mc:Ignorable="d"
+        Title="Settings" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Margin="10" Grid.Row="0">
+            <Border BorderBrush="Black" BorderThickness="2">
+                <StackPanel Margin="10" >
+                    <Label FontWeight="Bold" Margin="5">Teileanzahl ankreuzen</Label>
+                    <CheckBox Name="CH1" Content="3 Teile"/>            
+                    <CheckBox Name="CH2" Content="4 Teile"/>
+                    <CheckBox Name="CH3" Content="5 Teile"/>
+                    <CheckBox Name="CH4" Content="6 Teile"/>
+                    <CheckBox Name="CH5" Content="7 Teile"/>
+                    <CheckBox Name="CH6" Content="8 Teile"/>                   
+                </StackPanel>
+            </Border>
+            <Label> </Label>
+            <Label> </Label>
+            <Separator/>
+            <Label>   </Label>
+            <Label>   </Label>
+            <Label>   </Label>
+            <Label>   </Label>
+            <CheckBox Name="Schnitt0" Content="Schnitt bei Figur 3 Rund nur durch (0,0)"/>
+            <Label></Label>
+        </StackPanel>
+        <Button Click="Button_Click"  Grid.Row="2" Grid.Column="0" Margin="10" >Ok</Button>
+        <Button Click="Button1_Click" Grid.Row="2" Grid.Column="1" Margin="10">Abbrechen</Button>
+
+
+    </Grid>
+</Window>
