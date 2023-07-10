@@ -32,6 +32,8 @@ namespace Figure
         internal PrintDocument pd;
         internal Options Opt;
         internal LetzteAufgabe LA;
+        internal int FigAnz;
+
        /* internal bool letzteForm;
         internal Point[] letzteeGlP;
         internal int letzeZuf1;
@@ -56,7 +58,30 @@ namespace Figure
             GG1.Children.RemoveRange(0, aa);
 
             Random r1 = new Random();
-            int FigNr = r1.Next(4);           
+            bool bForm;
+            if (Rund.IsChecked == true)
+                bForm = true;
+            else if (Eckig.IsChecked == true)
+                bForm = false;
+            else
+            {
+                int iForm = r1.Next(2);
+                if (iForm == 0)
+                    bForm = false;
+                else
+                    bForm = true;
+            }
+            int FigNr;
+            if (bForm)
+            {
+                FigAnz = 4;
+                FigNr = r1.Next(FigAnz);
+            }
+            else
+            {
+                FigAnz = 6;
+                FigNr = r1.Next(FigAnz);
+            }                      
             Testliste.Items.Add(FigNr);
             int zuf1;
             do
@@ -70,19 +95,6 @@ namespace Figure
             for (int ii = 0; ii < AnzTeile; ii++)
                 Alph[ii] = r1.NextDouble() * 2 * Math.PI;
 
-            bool bForm;
-            if (Rund.IsChecked == true)
-                bForm = true;
-            else if (Eckig.IsChecked == true)
-                bForm = false;
-            else 
-            {
-                int iForm = r1.Next(2);
-                if(iForm == 0)
-                    bForm = false;
-                else
-                    bForm = true;   
-            }
                         
             LA.letzteForm = bForm;
             FC2 = new FigContr2(MW, bForm, FigNr, zuf1 + 3, Alph);
@@ -115,10 +127,10 @@ namespace Figure
             new_f2(false);
 
             FC2.ZeichneAufgabe(false, false);
-            for (int ii = 0; ii < 4; ii++)
+            for (int ii = 0; ii < FigAnz; ii++)
             {
                 FigContr2 FCX = new FigContr2(MW, FC2.FigFormRund, ii, 1,new double[0]);
-                FCX.ZeichneAlleTeileMitte(0.2, (ii + 1) * MW.GG1.ActualWidth / 5, MW.GG1.ActualHeight * 3 / 4, false);
+                FCX.ZeichneAlleTeileMitte(0.2, (ii + 1) * MW.GG1.ActualWidth / (FigAnz + 1), MW.GG1.ActualHeight * 3 / 4, false);
             }           
         }
         private void Loesung_Click(object sender, RoutedEventArgs e)
@@ -148,14 +160,13 @@ namespace Figure
             else
             {
                 FC2.ZeichneAufgabe(false, false);
-                for (int ii = 0; ii < 4; ii++)
+                for (int ii = 0; ii < FigAnz; ii++)
                 {
                     FigContr2 FCX = new FigContr2(MW, FC2.FigFormRund, ii, 1, new double[0]);
-                    FCX.ZeichneAlleTeileMitte(0.2, (ii + 1) * MW.GG1.ActualWidth / 5, MW.GG1.ActualHeight * 3 / 4, false);
+                    FCX.ZeichneAlleTeileMitte(0.2, (ii + 1) * MW.GG1.ActualWidth / (FigAnz + 1), MW.GG1.ActualHeight * 3 / 4, false);
                 }
             }
         }
-
         private void Einstellungen(object sender, RoutedEventArgs e)
         {
             Opt.AnsichtClick();

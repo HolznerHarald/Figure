@@ -26,6 +26,7 @@ namespace Figure
         internal double Spalt = 80;
         internal double fixerFaktorAltuelleBildschirmGroesse;
         internal int StartfigNr;
+        internal double RechteckWinkel = Math.PI / 6;
         //************ Nebenvariablen
         private MainWindow MW;  
         internal int AnzTeile;
@@ -72,20 +73,52 @@ namespace Figure
             }
             else//Eckig, Fignr = Anzahl der Ecken
             {
-                int AnzEcken = figNr + 5;
-                StartWinkel = Math.PI / AnzEcken + Math.PI/2;
-                double FigWinkel = 2 * Math.PI / AnzEcken;
+                int AnzEcken;
+                if (figNr == 4)
+                {
+                    glPoints[0].X = Math.Cos(RechteckWinkel) * Radi;
+                    glPoints[0].Y = Math.Sin(RechteckWinkel) * Radi;
+                    glPoints[1].X = -glPoints[0].X;
+                    glPoints[1].Y = glPoints[0].Y;
+                    glPoints[2].X = -glPoints[0].X;
+                    glPoints[2].Y = -glPoints[0].Y;
+                    glPoints[3].X = glPoints[0].X;
+                    glPoints[3].Y = -glPoints[0].Y;
+                    AnzEcken = 4;
+                }
+                else if (figNr == 5)
+                {
+                    AnzEcken = 4;
+                    StartWinkel = 2*Math.PI / 5 + Math.PI / 2;
+                    double FigWinkel = 2 * Math.PI / 5;
+                    glPoints[0].X = Math.Cos(StartWinkel) * Radi;
+                    glPoints[0].Y = Math.Sin(StartWinkel) * Radi;
+                    glPoints[1].X = Math.Cos(StartWinkel + FigWinkel) * Radi;
+                    glPoints[1].Y = Math.Sin(StartWinkel + FigWinkel) * Radi;
+                    glPoints[2].X = -glPoints[1].X;
+                    glPoints[2].Y = glPoints[1].Y;
+                    glPoints[3].X = -glPoints[0].X;
+                    glPoints[3].Y = glPoints[0].Y;
+                }
+                else
+                {
+                    AnzEcken = figNr + 5;
+                    StartWinkel = Math.PI / AnzEcken + Math.PI / 2;
+                    double FigWinkel = 2 * Math.PI / AnzEcken;
+                    for (int ii = 0; ii < AnzEcken; ii++)
+                    {
+                        glPoints[ii].X = Math.Cos(StartWinkel + ii * FigWinkel) * Radi;
+                        glPoints[ii].Y = Math.Sin(StartWinkel + ii * FigWinkel) * Radi;
+                    }                    
+                }
                 bool[] brund = new bool[AnzEcken];
                 int[] heck = new int[AnzEcken];
-                for (int ii=0;ii < AnzEcken; ii++)
+                for (int ii = 0; ii < AnzEcken; ii++)
                 {
                     brund[ii] = false;
                     heck[ii] = ii;
-                    glPoints[ii].X = Math.Cos(StartWinkel+ii*FigWinkel)*Radi;
-                    glPoints[ii].Y = Math.Sin(StartWinkel + ii * FigWinkel) * Radi; 
                 }
                 Figuren[0] = new Figur2(brund, heck, this, 0, MW);
-
             }
             FigTeile = new bool[20];
             for (int ii = 0; ii < FigTeile.Count(); ii++)
